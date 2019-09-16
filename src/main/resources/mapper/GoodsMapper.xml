@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuc.mapper.GoodsMapper">
+
+	<select id="selectKind" resultType="com.nuc.bean.Goods">
+		select * from goods where
+		goods_catelog_id=#{catelog_name}
+
+	</select>
+	<select id="selectOne" resultType="com.nuc.bean.Goods">
+	select * from goods where goods_name like '%#{goods_name}%'
+	</select>
+	<select id="selectComment" resultType="com.nuc.bean.Comment">
+	select * from comment where comment_goods_id=#{comment_goods_id} </select>
+</mapper>
