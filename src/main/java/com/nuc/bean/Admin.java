@@ -1,15 +1,15 @@
 package com.nuc.bean;
 
 public class Admin {
-	private Integer admin_id;
+	private String admin_id;
 	private String admin_name;
 	private String admin_password;
 
-	public Integer getAdmin_id() {
+	public String getAdmin_id() {
 		return admin_id;
 	}
 
-	public void setAdmin_id(Integer admin_id) {
+	public void setAdmin_id(String admin_id) {
 		this.admin_id = admin_id;
 	}
 

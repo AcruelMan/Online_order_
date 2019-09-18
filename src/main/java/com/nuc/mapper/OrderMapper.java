@@ -2,15 +2,18 @@ package com.nuc.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.nuc.bean.Order;
 
 public interface OrderMapper {
-	int insertOrder(Order order);
+	int insertOrder(@Param("order") Order order);
 
-	int selectAll(String user_id);
+	int selectAll(@Param("user_id") String user_id);
 
-	List<Order> selectUserList(String user_id, Integer start, Integer end);
+	List<Order> selectUserList(@Param("user_id") String user_id, @Param("start") Integer start,
+			@Param("end") Integer end);
 
-	Order selectOne(String order_id);
+	Order selectOne(@Param("order_id") String order_id);
 
 }

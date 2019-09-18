@@ -49,6 +49,10 @@ public class OrderServiceimpl implements OrderService {
 		return OrderMapper.selectOne(order_id);
 	}
 
-	
+	@Override
+	public int insertOrderItem(Orderitem orderitem) {
+		// TODO Auto-generated method stub
+		return OrderItemMapper.insertOne(orderitem);
+	}
 
 }

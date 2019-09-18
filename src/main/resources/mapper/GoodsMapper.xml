@@ -2,22 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nuc.mapper.GoodsMapper">
 
-	<select id="selectKind" resultType="com.nuc.bean.Goods">
+	<select id="selectKind" resultType="com.nuc.bean.Goods" >
 		select * from goods where
 		goods_catelog_id=#{catelog_name}
 
 	</select>
-	<select id="selectSome" resultType="com.nuc.bean.Goods">
+	<select id="selectSome" resultType="com.nuc.bean.Goods" >
 		select * from goods where
 		goods_name like '%#{goods_name}%'
 	</select>
-	<select id="selectComment" resultType="com.nuc.bean.Comment">
+	<select id="selectComment" resultType="com.nuc.bean.Comment" >
 		select * from comment
 		where comment_goods_id=#{comment_goods_id} and
 		comment_status=1
 	</select>
-	<select id="selectOne" resultType="com.nuc.bean.Goods">
+	<select id="selectOne" resultType="com.nuc.bean.Goods" >
 
-		select * from goods where goods_id=#{goods_id}
+		select * from goods where
+		goods_id=#{goods_id}
 	</select>
+	<insert id="addGoods" >
+		insert into
+		goods(goods_catelog_id,goods_name,goods_discription,goods_picture,goods_price,goods_amount)
+		value(#{oods_catelog_id},#{goods_name},#{goods_discription},#{goods_picture},#{goods_price},#{goods_amount})
+	</insert>
+	<update id="updateGoodsById" >
+
+		update goods set goods_amount=#{goods_amount} where
+		goods_id=#{goods_id}
+	</update>
+	<delete id="deleteGoodByID" >
+		delete from goods where goods_id=#{goods_id}
+	</delete>
+	<update id="updateGoodPropertiesById" >
+		update goods
+		<set>
+			<if test="goods_catelog_id!=null">
+				goods_catelog_id=#{goods_catelog_id}
+			</if>
+			<if test="goods_name!=null">goods_name=#{goods_name}</if>
+			<if test="goods_discription!=null">goods_discription=#{goods_discription}</if>
+			<if test="goods_picture!=null">goods_picture=#{goods_picture}</if>
+			<if test="goods_price!=null">goods_price=#{goods_price}</if>
+		</set>
+		where goods_id=#{goods_id}
+	</update>
 </mapper>

@@ -44,8 +44,8 @@ public class OrserController {
 	@ResponseBody
 	public R commitOrder(@RequestParam("order_user_id") String order_user_id,
 			@RequestParam("order_destination") String order_destination,
-			@RequestParam("order_pay_method") String order_pay_method,
-			@RequestParam("order_money") String order_money) {
+			@RequestParam("order_pay_method") String order_pay_method, @RequestParam("order_money") String order_money,
+			@RequestParam("food") String food) {
 		String order_id = UUIDMachine.createId();
 		Date order_date = TimeFormat.getDate();
 		int pay_method = Integer.parseInt(order_pay_method);
@@ -58,6 +58,27 @@ public class OrserController {
 		order.setOrder_money(money);
 		order.setOrder_user_id(order_user_id);
 		order.setOrder_status(1); // 1代表已付钱
+		String[] foodIdAndAmount = food.split(",");
+
+		for (String temp : foodIdAndAmount) {
+			String[] OrderItem = temp.split(":");
+			String id = UUIDMachine.createId();
+			Orderitem oItem = new Orderitem();
+			oItem.setOrderitem_id(id);
+			oItem.setOrder_id(order_id);
+			int goods_id = Integer.parseInt(OrderItem[0]);
+			int goods_amount = Integer.parseInt(OrderItem[1]);
+			int tempFlag = GoodsService.updateGoodsById(goods_id, goods_amount);
+			oItem.setGoods_id(goods_id);
+			oItem.setGoods_id(goods_id);
+			oItem.setGoods_amount(goods_amount);
+			int result = orderService.insertOrderItem(oItem);
+			if (result > 0 && tempFlag > 0) {
+				continue;
+			} else {
+				return R.error();
+			}
+		}
 		int flag = orderService.OrderCommit(order);
 		if (flag > 0) {
 			return R.ok();

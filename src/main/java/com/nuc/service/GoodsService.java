@@ -11,6 +11,16 @@ public interface GoodsService {
 	Map<String, List<Goods>> selectAll();
 
 	List<Goods> selectSome(String goodsname);
+
 	List<Comment> selectComment(int comment_goods_id);
-	Goods selectOne (int goods_id);
+
+	Goods selectOne(int goods_id);
+
+	int addGoods(Goods goods);
+
+	int updateGoodsById(Integer goods_id, Integer goods_amount);
+
+	int deleteGoodsById(Integer goods_id);
+
+	int updateGoodPropertiesById(Goods goods);
 }
