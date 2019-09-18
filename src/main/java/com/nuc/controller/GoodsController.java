@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nuc.bean.Comment;
 import com.nuc.bean.Goods;
@@ -24,7 +25,8 @@ public class GoodsController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/selcetAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+	@ResponseBody
 	public Map<String, List<Goods>> selectAll() {
 		Map<String, List<Goods>> result = goodService.selectAll();
 		return result;
@@ -37,6 +39,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selcetSome", method = RequestMethod.GET)
+	@ResponseBody
 	public List<Goods> selectSome(@RequestParam("name") String name) {
 		List<Goods> selectSome = goodService.selectSome(name);
 		return selectSome;
@@ -49,6 +52,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selcetComment", method = RequestMethod.GET)
+	@ResponseBody
 	public List<Comment> selectComment(@RequestParam("String food_id") String food_id) {
 		int id = Integer.parseInt(food_id);
 		List<Comment> comment = goodService.selectComment(id);

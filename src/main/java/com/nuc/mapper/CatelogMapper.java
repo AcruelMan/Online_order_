@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import com.nuc.bean.Catelog;
 
 public interface CatelogMapper {
-	@Select("selct * from catalog")
+	@Select("select * from catalog")
 	List<Catelog> selcetAll();
 }

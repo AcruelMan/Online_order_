@@ -3,7 +3,7 @@ package com.nuc.util;
 import java.util.UUID;
 
 public class UUIDMachine {
-	public static String createOrderId() {
+	public static String createId() {
 		int machineId = 1;
 
 		int hashCodeV = UUID.randomUUID().toString().hashCode();

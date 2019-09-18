@@ -38,12 +38,18 @@ public class GoodsServiceimpl implements GoodsService {
 
 	@Override
 	public List<Goods> selectSome(String goodsname) {
-		List<Goods> result = goodsMapper.selectOne(goodsname);
+		List<Goods> result = goodsMapper.selectSome(goodsname);
 		return result;
 	}
 
 	public List<Comment> selectComment(int comment_goods_id) {
 		List<Comment> comment = goodsMapper.selectComment(comment_goods_id);
 		return comment;
+	}
+
+	@Override
+	public Goods selectOne(int goods_id) {
+		// TODO Auto-generated method stub
+		return goodsMapper.selectOne(goods_id);
 	}
 }

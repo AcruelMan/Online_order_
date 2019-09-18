@@ -3,7 +3,7 @@ package com.nuc.bean;
 public class Orderitem {
 	private String orderitem_id;
 	private Integer goods_id;
-	private Integer order_id;
+	private String order_id;
 	private Integer goods_amount;
 
 	public String getOrderitem_id() {
@@ -22,11 +22,11 @@ public class Orderitem {
 		this.goods_id = goods_id;
 	}
 
-	public Integer getOrder_id() {
+	public String getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(Integer order_id) {
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
 

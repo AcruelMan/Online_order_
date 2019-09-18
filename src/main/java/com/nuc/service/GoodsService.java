@@ -12,4 +12,5 @@ public interface GoodsService {
 
 	List<Goods> selectSome(String goodsname);
 	List<Comment> selectComment(int comment_goods_id);
+	Goods selectOne (int goods_id);
 }

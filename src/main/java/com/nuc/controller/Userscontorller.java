@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nuc.bean.Users;
 import com.nuc.service.UsersService;
@@ -27,6 +28,7 @@ public class Userscontorller {
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
 	public R login(@RequestParam("username") String username, @RequestParam("pwd") String pwd) {
 		Users users = userService.selectOne(username);
 		String md5pwd = MD5Machine.stringToMD5(pwd);
@@ -50,11 +52,12 @@ public class Userscontorller {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@ResponseBody
 	public R register(@RequestParam("username") String user_name, @RequestParam("pwd") String user_password,
 			@RequestParam("sex") int user_sex, @RequestParam("age") int user_age, @RequestParam("tel") String tel,
 			@RequestParam("email") String email) {
 		Users users = new Users();
-		String tempId = UUIDMachine.createOrderId();
+		String tempId = UUIDMachine.createId();
 		String user_pwd = MD5Machine.stringToMD5(user_password);
 		users.setUser_id(tempId);
 		users.setUser_name(user_name);
@@ -78,7 +81,8 @@ public class Userscontorller {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "isExist", method = RequestMethod.GET)
+	@RequestMapping(value = "/isExist", method = RequestMethod.GET)
+	@ResponseBody
 	public R isExist(@RequestParam("username") String username) {
 		Users users = userService.selectOne(username);
 		if (users != null) {

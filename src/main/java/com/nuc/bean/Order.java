@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Order {
-	private Integer order_id;
+	private String order_id;
 	private String order_number;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -15,12 +15,14 @@ public class Order {
 	private String order_destination;
 	private Integer order_pay_method;
 	private Integer order_money;
+	private String order_user_id;
+	private Integer order_status;
 
-	public Integer getOrder_id() {
+	public String getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(Integer order_id) {
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
 
@@ -80,6 +82,4 @@ public class Order {
 		this.order_status = order_status;
 	}
 
-	private String order_user_id;
-	private Integer order_status;
 }

@@ -7,9 +7,17 @@
 		goods_catelog_id=#{catelog_name}
 
 	</select>
-	<select id="selectOne" resultType="com.nuc.bean.Goods">
-	select * from goods where goods_name like '%#{goods_name}%'
+	<select id="selectSome" resultType="com.nuc.bean.Goods">
+		select * from goods where
+		goods_name like '%#{goods_name}%'
 	</select>
 	<select id="selectComment" resultType="com.nuc.bean.Comment">
-	select * from comment where comment_goods_id=#{comment_goods_id} </select>
+		select * from comment
+		where comment_goods_id=#{comment_goods_id} and
+		comment_status=1
+	</select>
+	<select id="selectOne" resultType="com.nuc.bean.Goods">
+
+		select * from goods where goods_id=#{goods_id}
+	</select>
 </mapper>
