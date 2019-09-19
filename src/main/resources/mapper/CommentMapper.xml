@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuc.mapper.CommentMapper">
+	<insert id="insertComment" parameterType="com.nuc.bean.Comment">
+		insert into comment
+		values(#{comment_id},#{comment_user},#{comment_date},#{comment_text},#{comment_goods_id},#{comment_status},#{comment_rate})
+
+	</insert>
+
+	<select id="getCommentByid" resultType="com.nuc.bean.Comment">
+
+		select * from comment where comment_user=#{user_id} and
+		comment_order_id=#{order_id}
+	</select>
+</mapper>
