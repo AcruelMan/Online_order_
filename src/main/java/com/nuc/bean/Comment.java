@@ -10,9 +10,46 @@ public class Comment {
 	private String comment_id;
 	private String comment_user;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date comment_date;
 	private String comment_text;
+	private Integer comment_status;
+	private String comment_order_id;
+	private Integer comment_goods_id;
+
+	public Integer getComment_goods_id() {
+		return comment_goods_id;
+	}
+
+	public void setComment_goods_id(Integer comment_goods_id) {
+		this.comment_goods_id = comment_goods_id;
+	}
+
+	public String getComment_order_id() {
+		return comment_order_id;
+	}
+
+	public void setComment_order_id(String comment_order_id) {
+		this.comment_order_id = comment_order_id;
+	}
+
+	public Integer getComment_status() {
+		return comment_status;
+	}
+
+	public void setComment_status(Integer comment_status) {
+		this.comment_status = comment_status;
+	}
+
+	private Integer comment_rate;
+
+	public Integer getComment_rate() {
+		return comment_rate;
+	}
+
+	public void setComment_rate(Integer comment_rate) {
+		this.comment_rate = comment_rate;
+	}
 
 	public String getComment_id() {
 		return comment_id;

@@ -121,6 +121,17 @@ public class AdminController {
 		return R.ok();
 	}
 
+	/**
+	 * 更新菜的信息
+	 * 
+	 * @param goods_id
+	 * @param goods_catelog_id
+	 * @param goods_name
+	 * @param goods_discription
+	 * @param goods_picture
+	 * @param goods_price
+	 * @return
+	 */
 	@RequestMapping(value = "/updateGoodPropertiesById", method = RequestMethod.GET)
 	@ResponseBody
 	public R updateGoodPropertiesById(String goods_id, String goods_catelog_id, String goods_name,

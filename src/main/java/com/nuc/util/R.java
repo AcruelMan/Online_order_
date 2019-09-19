@@ -1,7 +1,11 @@
 package com.nuc.util;
 
 import java.util.HashMap;
-
+/**
+ * 工具函数，传状态码
+ * @author jinhu
+ *
+ */
 public class R extends HashMap<Object, Object> {
 	/**
 	 * 

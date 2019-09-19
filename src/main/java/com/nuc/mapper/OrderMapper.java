@@ -7,13 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import com.nuc.bean.Order;
 
 public interface OrderMapper {
-	int insertOrder(@Param("order") Order order);
+	int insertOrder( Order order);
 
-	int selectAll(@Param("user_id") String user_id);
+	int selectAll(String user_id);
 
 	List<Order> selectUserList(@Param("user_id") String user_id, @Param("start") Integer start,
 			@Param("end") Integer end);
 
-	Order selectOne(@Param("order_id") String order_id);
+	Order selectOne( String order_id);
 
 }

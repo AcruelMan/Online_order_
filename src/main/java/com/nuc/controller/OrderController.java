@@ -25,7 +25,7 @@ import com.nuc.util.UUIDMachine;
 
 @RequestMapping("/order")
 @Controller
-public class OrserController {
+public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	@Autowired
@@ -58,7 +58,7 @@ public class OrserController {
 		order.setOrder_money(money);
 		order.setOrder_user_id(order_user_id);
 		order.setOrder_status(1); // 1代表已付钱
-		String[] foodIdAndAmount = food.split(",");
+		String[] foodIdAndAmount = food.split(",");// 1:2， 2:3，
 
 		for (String temp : foodIdAndAmount) {
 			String[] OrderItem = temp.split(":");
@@ -69,7 +69,6 @@ public class OrserController {
 			int goods_id = Integer.parseInt(OrderItem[0]);
 			int goods_amount = Integer.parseInt(OrderItem[1]);
 			int tempFlag = GoodsService.updateGoodsById(goods_id, goods_amount);
-			oItem.setGoods_id(goods_id);
 			oItem.setGoods_id(goods_id);
 			oItem.setGoods_amount(goods_amount);
 			int result = orderService.insertOrderItem(oItem);
@@ -101,36 +100,55 @@ public class OrserController {
 		return total;
 	}
 
+	/**
+	 * 获得当前五个订单
+	 * 
+	 * @param user_id
+	 * @param currentpage
+	 * @return
+	 */
 	@RequestMapping(value = "/getOrderList", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<Object, Object> getOrderList(@RequestParam("order_user_id") String user_id,
+	public List<Object> getOrderList(@RequestParam("order_user_id") String user_id,
 			@RequestParam("current_page") Integer currentpage) {
 		int start = 5 * currentpage - 5;
 		int end = 5 * currentpage;
-		List<Order> selectList = orderService.selectList(user_id, start, end);
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		if (selectList != null) {
-			map.put("code", "200");
-			int i = 0;
-			for (Order order : selectList) {
-				ArrayList<String> imgList = new ArrayList<>();
-				List<Orderitem> selcetOrderItem = orderService.selcetOrderItem(order.getOrder_id()); // 根据order——id找orderitem
+		ArrayList<Object> list = new ArrayList<>();
+		List<Order> selectList = orderService.selectList(user_id, start, end); // 返回五条订单
 
+		if (selectList != null) {
+			list.add(R.ok());
+			for (Order order : selectList) {
+				Map<Object, Object> map = new HashMap<Object, Object>();
+				List<Orderitem> selcetOrderItem = orderService.selcetOrderItem(order.getOrder_id()); // 根据order_id找orderitem
+				ArrayList<Object> foods_img = new ArrayList<>();
 				for (Orderitem orderitem : selcetOrderItem) {
+					HashMap<Object, Object> goods_imgs = new HashMap<>();
 					Goods goods = GoodsService.selectOne(orderitem.getGoods_id());// 根据orderitem找goods_id
-					imgList.add(goods.getGoods_picture());
+					goods_imgs.put("food_name", goods.getGoods_name());
+					goods_imgs.put("food_picture", goods.getGoods_picture());
+					foods_img.add(goods_imgs);
 				}
-				map.put("order" + (i + 1), order);
-				map.put("img_src" + (i + 1), imgList);
-				i++;
+				map.put("order_id", order.getOrder_id());
+
+				map.put("goods_img", foods_img);
+				map.put("order_date", order.getOrder_date());
+				map.put("order_payment", order.getOrder_pay_method());
+				list.add(map);
 			}
 
 		} else {
-			map.put("code", "500");
+			list.add(R.error());
 		}
-		return map;
+		return list;
 	}
 
+	/**
+	 * 获取订单详情
+	 * 
+	 * @param order_id
+	 * @return
+	 */
 	@RequestMapping(value = "/OrderDetail", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<Object, Object> getOrderDetail(@RequestParam("order_id") String order_id) {
@@ -138,12 +156,12 @@ public class OrserController {
 		List<Goods> goodslist = new ArrayList<>();
 		HashMap<Object, Object> map = new HashMap<>();
 		if (list != null && goodslist != null) {
-			int i = 0;
+
 			for (Orderitem orderitem : list) {
 				Goods goods = GoodsService.selectOne(orderitem.getGoods_id());
 				goodslist.add(goods);
-				map.put("good" + i, goods);
-				i++;
+				map.put("good", goods);
+
 			}
 			Order order = orderService.selectOne(order_id);
 			map.put("order", order);

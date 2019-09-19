@@ -6,4 +6,6 @@ public interface UsersService {
 	int insertOneUsers(Users users);
 
 	Users selectOne(String user_name);
+
+	int updateAddress(Users users);
 }

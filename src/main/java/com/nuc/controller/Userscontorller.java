@@ -1,5 +1,10 @@
 package com.nuc.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,21 +56,24 @@ public class Userscontorller {
 	 * @param email
 	 * @return
 	 */
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public R register(@RequestParam("username") String user_name, @RequestParam("pwd") String user_password,
-			@RequestParam("sex") int user_sex, @RequestParam("age") int user_age, @RequestParam("tel") String tel,
+			@RequestParam("sex") String user_sex, @RequestParam("age") String user_age, @RequestParam("tel") String tel,
 			@RequestParam("email") String email) {
+		System.out.print(user_name);
 		Users users = new Users();
-		String tempId = UUIDMachine.createId();
+		String tempId = UUIDMachine.createId();// 生成ID
 		String user_pwd = MD5Machine.stringToMD5(user_password);
 		users.setUser_id(tempId);
 		users.setUser_name(user_name);
 		users.setUser_password(user_pwd);
-		users.setUser_sex(user_sex);
-		users.setUser_age(user_age);
+		users.setUser_sex(Integer.parseInt(user_sex));
+		users.setUser_age(Integer.parseInt(user_age));
 		users.setUser_tel(tel);
 		users.setUser_email(email);
+
 		int flag = userService.insertOneUsers(users);
 		if (flag > 0) {
 			return R.ok();
@@ -81,9 +89,10 @@ public class Userscontorller {
 	 * @param username
 	 * @return
 	 */
-	@RequestMapping(value = "/isExist", method = RequestMethod.GET)
+	@RequestMapping(value = "/isExist", method = RequestMethod.POST)
 	@ResponseBody
 	public R isExist(@RequestParam("username") String username) {
+		System.out.println(username);
 		Users users = userService.selectOne(username);
 		if (users != null) {
 			return R.error();
@@ -93,4 +102,49 @@ public class Userscontorller {
 
 	}
 
+	/**
+	 * 获取用户信息
+	 * 
+	 * @param use_name
+	 * @return
+	 */
+	public List<Map<Object, Object>> getUserInfo(String use_name) {
+		ArrayList<Map<Object, Object>> list = new ArrayList<>();
+		Users one = userService.selectOne(use_name);
+		HashMap<Object, Object> map = new HashMap<>();
+		if (one != null) {
+			map.put("code", "200");
+			map.put("", one.getUser_id());
+			map.put("user_address", one.getUser_address());
+			map.put("user_sex", one.getUser_sex());
+			map.put("user_tel", one.getUser_tel());
+			map.put("user_email", one.getUser_email());
+			map.put("user_age", one.getUser_age());
+			list.add(map);
+			return list;
+		} else {
+			list.add(R.error());
+			return list;
+		}
+
+	}
+
+	/**
+	 * 修改地址
+	 * 
+	 * @param user_id
+	 * @param user_addrss
+	 * @return
+	 */
+	public R updateAddress(String user_id, String user_addrss) {
+		Users users = new Users();
+		users.setUser_id(user_id);
+		users.setUser_address(user_addrss);
+		int flag = userService.updateAddress(users);
+		if (flag > 0) {
+			return R.ok();
+		} else {
+			return R.error();
+		}
+	}
 }

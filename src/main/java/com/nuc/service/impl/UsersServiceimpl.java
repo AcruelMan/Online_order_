@@ -22,4 +22,11 @@ public class UsersServiceimpl implements UsersService {
 		return usersMapper.SelectByUserName(user_name);
 	}
 
+	@Override
+	public int updateAddress(Users users) {
+		// TODO Auto-generated method stub
+		int flag = usersMapper.updateAddress(users);
+		return flag;
+	}
+
 }

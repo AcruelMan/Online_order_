@@ -6,9 +6,12 @@
 		where
 		user_name=#{user_name}
 	</select>
-	<insert id="InsertUsers" >
+	<insert id="InsertUsers" parameterType="com.nuc.bean.Users">
 		insert into users
 		values(#{user_id},#{user_name},#{user_password},#{user_sex},#{user_age},#{user_address},#{user_tel},#{user_email})
 	</insert>
+	<update id="updateAddress" parameterType="com.nuc.bean.Users">
+		update users set user_address=#{user_address} where user_id=#{user_id}
 
-</mapper>
+	</update>
+</mapper> 

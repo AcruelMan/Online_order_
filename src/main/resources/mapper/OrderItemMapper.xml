@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nuc.mapper.OrderItemMapper">
-	<select id="selcetOrderItem" resultType="com.nuc.bean.Orderitem" >
+	<select id="selcetOrderItem" resultType="com.nuc.bean.Orderitem"
+		parameterType="java.lang.String">
 		select * from orderItem
 		where
 		order_id=#{order_id}
 
 	</select>
-	<select id="insertOne" >
+	<select id="insertOne" parameterType="com.nuc.bean.Orderitem">
 		insert into orderItem
 		values(#{orderItem_id},#{goods_id},#{order_id},#{goods_amount})
 	</select>
